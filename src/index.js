@@ -1,15 +1,16 @@
 module.exports = function check(str, bracketsConfig) {
-  if (
-    str == '())(' ||
-    str == '[(])' ||
-    str == '[]()(' ||
-    str == '|(|)' ||
-    str == '5555512575557777777555566667888888667661133833448441111222233333444442266666' ||
-    str == '8888877878887777777888888887777777887887788788887887777777788888888887788888' ||
-    str == '[]][[]' ||
-    str == '[]][[]' ||
-    str == '([[[[(({{{}}}(([](((((((())))||||||))))[[{{|{{}}|}}[[[[]]]]{{{{{}}}}}]]))))]]]]))()'
-  )
-    return false;
+  if (str.length % 2 != 0) return false;
+  let count = [];
+  for (let a = 0; a < str.length; a++) {
+    bracketsConfig.forEach((i) => {
+      if (!str.includes(i[0] || !str.includes(i[1]))) return false;
+      if (str.includes(i.join(''))) {
+        count.push(str[a], str[a + 1]);
+        str = str.replace(i.join(''), '');
+        a = 0;
+      }
+    });
+  }
+  if (str.length != 0) return false;
   else return true;
 };
